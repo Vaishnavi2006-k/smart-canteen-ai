@@ -33,6 +33,12 @@ y_pred = model.predict(X_test)
 mae = mean_absolute_error(y_test, y_pred)
 score = model.score(X_test, y_test)
 
+# Store latest prediction
+if "latest_demand" not in
+st.session_state:
+    st.session_state.latest_demand
+= None
+    
 # Sidebar
 st.sidebar.title("🍱 Smart Canteen AI")
 
@@ -137,6 +143,7 @@ elif page == "🤖 Prediction":
         })
 
         demand = round(model.predict(new_data)[0])
+        st.session_state.latest_demand = demand
 
         if demand < 100:
             recommendation = "Prepare Low quantity to reduce food waste."
@@ -257,6 +264,11 @@ elif page == "♻️ Waste Management":
 
     st.subheader("📊 Enter Predicted Demand")
 
+    if st.session_state.latest_demand is not None:
+    st.info(
+        f"Latest Predicted Demand: {st.session_state.latest_demand}"
+    )
+    
     predicted_demand = st.number_input(
         "Predicted Food Demand",
         min_value=1,
