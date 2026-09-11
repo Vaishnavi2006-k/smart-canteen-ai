@@ -102,6 +102,14 @@ elif page == "🤖 Prediction":
 
     st.title("🤖 Smart Food Demand Prediction")
 
+    st.info(
+    "💡 Enter the canteen details below. "
+    "The AI model will estimate the required food quantity."
+    )
+    st.divider()
+
+    st.subheader("📝 Canteen Details")
+
     st.write("Enter canteen information to predict food demand.")
 
     student = st.number_input(
