@@ -34,10 +34,8 @@ mae = mean_absolute_error(y_test, y_pred)
 score = model.score(X_test, y_test)
 
 # Store latest prediction
-if "latest_demand" not in
-st.session_state:
-    st.session_state.latest_demand
-= None
+if "latest_demand" not in st.session_state:
+     st.session_state.latest_demand = None
     
 # Sidebar
 st.sidebar.title("🍱 Smart Canteen AI")
