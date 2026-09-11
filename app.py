@@ -267,11 +267,11 @@ elif page == "♻️ Waste Management":
             f"Latest Predicted Demand: {st.session_state.latest_demand}"
     )
     
-    predicted_demand = st.number_input(
-        "Predicted Food Demand",
-        min_value=1,
-        value=135
-    )
+   predicted_demand = st.session_state.latest_demand
+
+if predicted_demand is None:
+    st.warning("Please make a prediction first from the Prediction page.")
+    st.stop()
 
     if st.button("♻️ Generate Waste Reduction Plan", use_container_width=True):
 
