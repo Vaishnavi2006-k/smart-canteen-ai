@@ -86,7 +86,6 @@ if page == "🏠 Home":
         "quantity of food and reduce unnecessary wastage."
     )
 
-    col1, col2, col3 = st.columns(3)
 
     with col1:
         st.metric("Dataset Records", len(df))
