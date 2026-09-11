@@ -246,33 +246,61 @@ elif page == "🧠 Model Performance":
 # WASTE MANAGEMENT
 elif page == "♻️ Waste Management":
 
-    st.title("♻️ Smart Waste Management")
+    st.title("♻️ Smart Waste Reduction System")
 
     st.write(
-        "Food demand prediction can help canteen staff prepare "
-        "the right quantity of food."
-    )
-
-    st.subheader("💡 Waste Reduction Strategy")
-
-    st.write(
-        "🟢 Low Demand → Prepare low quantity."
-    )
-
-    st.write(
-        "🟡 Medium Demand → Prepare medium quantity."
-    )
-
-    st.write(
-        "🔴 High Demand → Prepare high quantity."
+        "The system recommends an appropriate food preparation quantity "
+        "based on predicted demand to reduce unnecessary food waste."
     )
 
     st.divider()
 
-    st.success(
-        "🎯 The main objective is to balance food availability "
-        "and reduce unnecessary food waste."
+    st.subheader("📊 Enter Predicted Demand")
+
+    predicted_demand = st.number_input(
+        "Predicted Food Demand",
+        min_value=1,
+        value=135
     )
+
+    if st.button("♻️ Generate Waste Reduction Plan", use_container_width=True):
+
+        recommended_quantity = predicted_demand + 5
+
+        if predicted_demand < 100:
+            waste_level = "Low"
+            suggestion = "Prepare a small quantity and avoid overproduction."
+
+        elif predicted_demand < 160:
+            waste_level = "Medium"
+            suggestion = "Prepare a moderate quantity close to predicted demand."
+
+        else:
+            waste_level = "High"
+            suggestion = "Prepare food in batches and monitor demand carefully."
+
+        st.divider()
+
+        st.subheader("🎯 Waste Reduction Results")
+
+        st.metric(
+            "Predicted Demand",
+            predicted_demand
+        )
+
+        st.metric(
+            "Recommended Preparation",
+            recommended_quantity
+        )
+
+        st.metric(
+            "Expected Waste Level",
+            waste_level
+        )
+
+        st.success(
+            "💡 " + suggestion
+        )
 
 st.sidebar.divider()
 
