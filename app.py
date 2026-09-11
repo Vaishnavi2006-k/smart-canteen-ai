@@ -267,7 +267,7 @@ elif page == "♻️ Waste Management":
             f"Latest Predicted Demand: {st.session_state.latest_demand}"
     )
     
-   predicted_demand = st.session_state.latest_demand
+predicted_demand = st.session_state.latest_demand
 
 if predicted_demand is None:
     st.warning("Please make a prediction first from the Prediction page.")
