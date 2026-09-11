@@ -260,58 +260,70 @@ elif page == "♻️ Waste Management":
 
     st.divider()
 
-    st.subheader("📊 Enter Predicted Demand")
+    st.subheader("📊 Latest Prediction")
 
-    if st.session_state.latest_demand  is not None:
+    predicted_demand = st.session_state.latest_demand
+
+    if predicted_demand is None:
+
+        st.warning(
+            "Please make a prediction first from the Prediction page."
+        )
+
+    else:
+
         st.info(
-            f"Latest Predicted Demand: {st.session_state.latest_demand}"
-    )
-    
-predicted_demand = st.session_state.latest_demand
-
-if predicted_demand is None:
-    st.warning("Please make a prediction first from the Prediction page.")
-    st.stop()
-
-    if st.button("♻️ Generate Waste Reduction Plan", use_container_width=True):
-
-        recommended_quantity = predicted_demand + 5
-
-        if predicted_demand < 100:
-            waste_level = "Low"
-            suggestion = "Prepare a small quantity and avoid overproduction."
-
-        elif predicted_demand < 160:
-            waste_level = "Medium"
-            suggestion = "Prepare a moderate quantity close to predicted demand."
-
-        else:
-            waste_level = "High"
-            suggestion = "Prepare food in batches and monitor demand carefully."
-
-        st.divider()
-
-        st.subheader("🎯 Waste Reduction Results")
-
-        st.metric(
-            "Predicted Demand",
-            predicted_demand
+            f"Latest Predicted Demand: {predicted_demand}"
         )
 
-        st.metric(
-            "Recommended Preparation",
-            recommended_quantity
-        )
+        if st.button(
+            "♻️ Generate Waste Reduction Plan",
+            use_container_width=True
+        ):
 
-        st.metric(
-            "Expected Waste Level",
-            waste_level
-        )
+            recommended_quantity = predicted_demand + 5
 
-        st.success(
-            "💡 " + suggestion
-        )
+            if predicted_demand < 100:
+                waste_level = "Low"
+                suggestion = (
+                    "Prepare a small quantity and avoid overproduction."
+                )
 
+            elif predicted_demand < 160:
+                waste_level = "Medium"
+                suggestion = (
+                    "Prepare a moderate quantity close to predicted demand."
+                )
+
+            else:
+                waste_level = "High"
+                suggestion = (
+                    "Prepare food in batches and monitor demand carefully."
+                )
+
+            st.divider()
+
+            st.subheader("🎯 Waste Reduction Results")
+
+            st.metric(
+                "Predicted Demand",
+                predicted_demand
+            )
+
+            st.metric(
+                "Recommended Preparation",
+                recommended_quantity
+            )
+
+            st.metric(
+                "Expected Waste Level",
+                waste_level
+            )
+
+            st.success(
+                "💡 " + suggestion
+            )
+            
 st.sidebar.divider()
 
 st.sidebar.caption(
