@@ -6,33 +6,18 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error
 
-st.set_page_config(
-    page_title="Smart Canteen AI",
-    page_icon="🍱",
-    layout="wide"
-)
+st.set_page_config(page_title="Smart Canteen AI", page_icon="🍱", layout="wide")
 
 # Load dataset
 df = pd.read_excel("canteen_dataset.xlsx.xlsx")
 
-# Encode categorical data
-weather_encoder = LabelEncoder()
-event_encoder = LabelEncoder()
-exam_encoder = LabelEncoder()
-
-df["Weather"] = weather_encoder.fit_transform(df["Weather"])
-df["Special_Event"] = event_encoder.fit_transform(df["Special_Event"])
-df["Exam_Day"] = exam_encoder.fit_transform(df["Exam_Day"])
+# Encode columns
+df["Weather"] = LabelEncoder().fit_transform(df["Weather"])
+df["Special_Event"] = LabelEncoder().fit_transform(df["Special_Event"])
+df["Exam_Day"] = LabelEncoder().fit_transform(df["Exam_Day"])
 
 # Features and target
-X = df[[
-    "Student",
-    "Weather",
-    "Previous_Sales",
-    "Special_Event",
-    "Exam_Day"
-]]
-
+X = df[["Student", "Weather", "Previous_Sales", "Special_Event", "Exam_Day"]]
 y = df["Actual_Demand"]
 
 # Train model
@@ -40,11 +25,7 @@ X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
 
-model = RandomForestRegressor(
-    n_estimators=100,
-    random_state=42
-)
-
+model = RandomForestRegressor(n_estimators=100, random_state=42)
 model.fit(X_train, y_train)
 
 # Evaluation
@@ -81,33 +62,29 @@ if page == "🏠 Home":
     st.header("📌 Project Overview")
 
     st.write(
-        "The system uses previous canteen data to predict the expected "
-        "food demand. This helps canteen staff prepare an appropriate "
-        "quantity of food and reduce unnecessary wastage."
+        "The system learns from previous canteen data and predicts "
+        "the expected food demand. This helps canteen staff prepare "
+        "the appropriate quantity of food and reduce unnecessary wastage."
     )
 
+    st.subheader("🔄 How It Works")
 
-    with col1:
-        st.metric("Dataset Records", len(df))
-
-    with col2:
-        st.metric("ML Model", "Random Forest")
-
-    with col3:
-        st.metric("R² Score", round(score, 2))
+    st.write(
+        "Student Count + Weather + Previous Sales + Special Event + Exam Day "
+        "→ Random Forest Model → Predicted Demand → Waste Recommendation"
+    )
 
     st.divider()
 
-    st.header("🔄 How It Works")
+    st.header("📊 Project Information")
 
-    st.write(
-        "Student Information + Weather + Previous Sales + Events "
-        "→ Machine Learning Model → Predicted Food Demand "
-        "→ Waste Reduction Recommendation"
-    )
+    st.write("**Dataset Records:**", len(df))
+    st.write("**Machine Learning Model:** Random Forest Regressor")
+    st.write("**R² Score:**", round(score, 2))
+    st.write("**Mean Absolute Error:**", round(mae, 2))
 
     st.info(
-        "🎯 Main Goal: Predict demand accurately and reduce food waste."
+        "🎯 Goal: Predict food demand and help reduce food wastage."
     )
 
 
@@ -116,42 +93,27 @@ elif page == "🤖 Prediction":
 
     st.title("🤖 Smart Food Demand Prediction")
 
-    st.write(
-        "Enter today's canteen information to predict the required food quantity."
+    st.write("Enter canteen information to predict food demand.")
+
+    student = st.number_input(
+        "Number of Students", min_value=1, value=150
     )
 
-    col1, col2 = st.columns(2)
+    weather = st.selectbox(
+        "Weather", ["Cloudy", "Rainy", "Sunny"]
+    )
 
-    with col1:
+    previous_sales = st.number_input(
+        "Previous Sales", min_value=0, value=140
+    )
 
-        student = st.number_input(
-            "Number of Students",
-            min_value=1,
-            value=150
-        )
+    special_event = st.selectbox(
+        "Special Event", ["No", "Yes"]
+    )
 
-        weather = st.selectbox(
-            "Weather",
-            ["Cloudy", "Rainy", "Sunny"]
-        )
-
-        previous_sales = st.number_input(
-            "Previous Sales",
-            min_value=0,
-            value=140
-        )
-
-    with col2:
-
-        special_event = st.selectbox(
-            "Special Event",
-            ["No", "Yes"]
-        )
-
-        exam_day = st.selectbox(
-            "Exam Day",
-            ["No", "Yes"]
-        )
+    exam_day = st.selectbox(
+        "Exam Day", ["No", "Yes"]
+    )
 
     if st.button("🔮 Predict Food Demand", use_container_width=True):
 
@@ -195,22 +157,12 @@ elif page == "🤖 Prediction":
 
         st.header("📊 Prediction Results")
 
-        r1, r2, r3, r4 = st.columns(4)
-
-        with r1:
-            st.metric("Predicted Demand", demand)
-
-        with r2:
-            st.metric("Expected Waste", waste)
-
-        with r3:
-            st.metric("Preparation Level", preparation)
-
-        with r4:
-            st.metric("R² Score", round(score, 2))
+        st.metric("Predicted Food Demand", demand)
+        st.metric("Expected Waste Level", waste)
+        st.metric("Food Preparation Level", preparation)
 
         st.success(
-            "💡 Smart Recommendation: " + recommendation
+            "💡 " + recommendation
         )
 
 
@@ -220,7 +172,110 @@ elif page == "📊 Demand Analysis":
     st.title("📊 Demand Analysis")
 
     st.write(
-        "Analysis of food demand patterns in the available canteen dataset."
+        "Food demand pattern from the available canteen dataset."
     )
 
-    col1, col2
+    st.metric(
+        "Average Food Demand",
+        round(df["Actual_Demand"].mean(), 1)
+    )
+
+    st.metric(
+        "Maximum Food Demand",
+        int(df["Actual_Demand"].max())
+    )
+
+    st.divider()
+
+    chart_data = df["Actual_Demand"].reset_index()
+    chart_data.columns = ["Record", "Demand"]
+
+    fig, ax = plt.subplots()
+
+    ax.plot(
+        chart_data["Record"],
+        chart_data["Demand"],
+        marker="o"
+    )
+
+    ax.set_xlabel("Dataset Record")
+    ax.set_ylabel("Food Demand")
+    ax.set_title("Food Demand Trend")
+
+    st.pyplot(fig)
+
+    st.subheader("📋 Dataset Preview")
+
+    st.dataframe(
+        df.head(10),
+        use_container_width=True
+    )
+
+
+# MODEL PERFORMANCE
+elif page == "🧠 Model Performance":
+
+    st.title("🧠 Model Performance")
+
+    st.metric("R² Score", round(score, 2))
+
+    st.metric("Mean Absolute Error", round(mae, 2))
+
+    st.metric("Training Records", len(X_train))
+
+    st.divider()
+
+    st.header("🌳 Random Forest Regressor")
+
+    st.write(
+        "Random Forest combines multiple decision trees to make "
+        "more reliable predictions."
+    )
+
+    st.write(
+        "The model uses Student count, Weather, Previous Sales, "
+        "Special Event and Exam Day as input features."
+    )
+
+    st.info(
+        "The model learns patterns from historical canteen data "
+        "to estimate future food demand."
+    )
+
+
+# WASTE MANAGEMENT
+elif page == "♻️ Waste Management":
+
+    st.title("♻️ Smart Waste Management")
+
+    st.write(
+        "Food demand prediction can help canteen staff prepare "
+        "the right quantity of food."
+    )
+
+    st.subheader("💡 Waste Reduction Strategy")
+
+    st.write(
+        "🟢 Low Demand → Prepare low quantity."
+    )
+
+    st.write(
+        "🟡 Medium Demand → Prepare medium quantity."
+    )
+
+    st.write(
+        "🔴 High Demand → Prepare high quantity."
+    )
+
+    st.divider()
+
+    st.success(
+        "🎯 The main objective is to balance food availability "
+        "and reduce unnecessary food waste."
+    )
+
+st.sidebar.divider()
+
+st.sidebar.caption(
+    "Smart Canteen AI | Machine Learning Project"
+)
