@@ -262,8 +262,7 @@ elif page == "♻️ Waste Management":
 
     st.subheader("📊 Enter Predicted Demand")
 
-    if st.session_state.latest_demand 
-    is not None:
+    if st.session_state.latest_demand  is not None:
         st.info(
             f"Latest Predicted Demand: {st.session_state.latest_demand}"
     )
