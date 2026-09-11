@@ -36,6 +36,10 @@ score = model.score(X_test, y_test)
 # Store latest prediction
 if "latest_demand" not in st.session_state:
      st.session_state.latest_demand = None
+
+# Prediction History
+if "prediction_history" not in st.session_state:
+    st.session_state.prediction_history = []
     
 # Sidebar
 st.sidebar.title("🍱 Smart Canteen AI")
@@ -142,6 +146,14 @@ elif page == "🤖 Prediction":
 
         demand = round(model.predict(new_data)[0])
         st.session_state.latest_demand = demand
+        st.session_state.prediction_history.append({
+             "Students": student,
+             "Weather": weather,
+             "Previous Sales": previous_sales,
+             "Special Event": special_event,
+             "Exam Day": exam_day,
+             "Predicted Demand": demand
+        })
 
         if demand < 100:
             recommendation = "Prepare Low quantity to reduce food waste."
