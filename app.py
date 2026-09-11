@@ -182,6 +182,24 @@ elif page == "🤖 Prediction":
         st.divider()
 
         st.header("📊 Prediction Results")
+        st.subheader("🎯 AI Prediction Summary")
+        st.write(
+            f"The AI model predicts a food demand of **{demand} units** "
+           "based on the entered canteen conditions."
+        )
+
+        st.divider()
+
+        col1, col2, col3 = st.columns(3)
+
+        with col1:
+            st.metric("🍱 Predicted Demand", demand)
+
+        with col2:
+            st.metric("♻️ Expected Waste", waste)
+
+        with col3:
+            st.metric("👨‍🍳 Preparation Level", preparation)
 
         st.metric("Predicted Food Demand", demand)
         st.metric("Expected Waste Level", waste)
