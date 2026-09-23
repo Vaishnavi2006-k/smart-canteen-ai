@@ -8,6 +8,60 @@ from sklearn.metrics import mean_absolute_error
 
 st.set_page_config(page_title="Smart Canteen AI", page_icon="🍱", layout="wide")
 
+# =========================
+# CUSTOM DASHBOARD STYLE
+# =========================
+
+st.markdown("""
+<style>
+
+.stApp {
+    background-color: #070b18;
+    color: #f5f7ff;
+}
+
+[data-testid="stSidebar"] {
+    background-color: #0b1124;
+    border-right: 1px solid #202a45;
+}
+
+[data-testid="stSidebar"] * {
+    color: #e8ecff;
+}
+
+.block-container {
+    padding-top: 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+h1, h2, h3 {
+    color: #f5f7ff;
+}
+
+[data-testid="stMetric"] {
+    background: #0d152b;
+    border: 1px solid #27345a;
+    border-radius: 14px;
+    padding: 18px;
+}
+
+.stButton > button {
+    border-radius: 10px;
+    border: 1px solid #4c55d9;
+    background: #171d45;
+    color: white;
+    font-weight: 600;
+}
+
+.stButton > button:hover {
+    border-color: #7c83ff;
+    color: white;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
 # Load dataset
 df = pd.read_excel("canteen_dataset.xlsx.xlsx")
 
