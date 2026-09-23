@@ -97,17 +97,34 @@ if page == "🏠 Home":
             round(mae, 2)
         )
 
-    with col4:
-        if st.session_state.latest_demand is not None:
-            st.metric(
-                "🍱 Latest Demand",
-                st.session_state.latest_demand
-            )
+   with col4:
+
+    if st.session_state.latest_demand is not None:
+
+        latest_demand = st.session_state.latest_demand
+
+        st.metric(
+            "🍱 Latest Demand",
+            latest_demand
+        )
+
+        if latest_demand >= 160:
+            st.error("🔴 High Demand")
+
+        elif latest_demand < 100:
+            st.info("🔵 Low Demand")
+
         else:
-            st.metric(
-                "🍱 Latest Demand",
-                "N/A"
-            )
+            st.success("🟢 Normal Demand")
+
+    else:
+
+        st.metric(
+            "🍱 Latest Demand",
+            "N/A"
+        )
+
+        st.info("ℹ️ No prediction yet")
 
     st.divider()
 
