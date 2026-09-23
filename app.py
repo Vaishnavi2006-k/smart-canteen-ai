@@ -138,19 +138,22 @@ if page == "🏠 Home":
     with col1:
         st.metric(
             "📚 Dataset Records",
-            len(df)
+            len(df),
+            "Total food records"
         )
 
     with col2:
         st.metric(
             "🎯 R² Score",
-            round(score, 2)
+            round(score, 2),
+            "Model accuracy"
         )
 
     with col3:
         st.metric(
             "📏 MAE",
-            round(mae, 2)
+            round(mae, 2),
+            "Mean absolute error"
         )
 
     with col4:
@@ -161,7 +164,8 @@ if page == "🏠 Home":
 
             st.metric(
                 "🍱 Latest Demand",
-                latest_demand
+                latest_demand,
+                "Predicted demand"
             )
 
             if latest_demand >= 160:
@@ -177,13 +181,11 @@ if page == "🏠 Home":
 
             st.metric(
                 "🍱 Latest Demand",
-                "N/A"
+                "N/A",
+                "No prediction yet"
             )
 
-            st.info("ℹ️ No prediction yet")
-
     st.divider()
-
         # QUICK ACTIONS
 
     st.subheader("⚡ Quick Actions")
@@ -219,7 +221,6 @@ if page == "🏠 Home":
         st.subheader("📈 Food Demand Overview")
 
         chart_data = df["Actual_Demand"].reset_index()
-
         chart_data.columns = [
             "Record",
             "Demand"
@@ -230,66 +231,42 @@ if page == "🏠 Home":
         ax.plot(
             chart_data["Record"],
             chart_data["Demand"],
-            marker="o"
+            linewidth=2.5
         )
 
-        ax.set_xlabel("Dataset Record")
-        ax.set_ylabel("Food Demand")
+        ax.set_xlabel("Record")
+        ax.set_ylabel("Demand")
         ax.set_title("Historical Food Demand")
+
+        ax.grid(
+            alpha=0.2
+        )
+
+        fig.tight_layout()
 
         st.pyplot(fig)
 
-    with col2:
+       with col2:
 
         st.subheader("🔄 How the System Works")
 
-        st.write(
-            "The system follows these steps:"
-        )
+        st.info("👨‍🎓 Student Count")
+        st.info("🌦️ Weather")
+        st.info("💰 Previous Sales")
+        st.info("🎉 Special Event")
+        st.info("📝 Exam Day")
 
-        st.write(
-            "👨‍🎓 Student Count"
-        )
+        st.write("⬇️")
 
-        st.write(
-            "🌦️ Weather"
-        )
+        st.success("🤖 Random Forest Model")
 
-        st.write(
-            "💰 Previous Sales"
-        )
+        st.write("⬇️")
 
-        st.write(
-            "🎉 Special Event"
-        )
+        st.warning("🍱 Predicted Food Demand")
 
-        st.write(
-            "📝 Exam Day"
-        )
+        st.write("⬇️")
 
-        st.write(
-            "⬇️"
-        )
-
-        st.write(
-            "🤖 Random Forest Model"
-        )
-
-        st.write(
-            "⬇️"
-        )
-
-        st.write(
-            "🍱 Predicted Food Demand"
-        )
-
-        st.write(
-            "⬇️"
-        )
-
-        st.write(
-            "♻️ Waste Reduction Recommendation"
-        )
+        st.success("♻️ Waste Reduction Recommendation")
 
     st.divider()
 
