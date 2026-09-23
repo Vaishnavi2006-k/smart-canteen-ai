@@ -212,7 +212,7 @@ if page == "🏠 Home":
 
     st.divider()
 
-    # MAIN DASHBOARD
+        # MAIN DASHBOARD
 
     col1, col2 = st.columns(2)
 
@@ -221,6 +221,7 @@ if page == "🏠 Home":
         st.subheader("📈 Food Demand Overview")
 
         chart_data = df["Actual_Demand"].reset_index()
+
         chart_data.columns = [
             "Record",
             "Demand"
@@ -246,7 +247,7 @@ if page == "🏠 Home":
 
         st.pyplot(fig)
 
-       with col2:
+    with col2:
 
         st.subheader("🔄 How the System Works")
 
@@ -269,7 +270,7 @@ if page == "🏠 Home":
         st.success("♻️ Waste Reduction Recommendation")
 
     st.divider()
-
+   
     # PROJECT INFORMATION
 
     st.subheader("📌 Project Overview")
