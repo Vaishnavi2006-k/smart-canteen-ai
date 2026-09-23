@@ -77,6 +77,8 @@ if page == "🏠 Home":
 
     # DASHBOARD METRICS
 
+        # DASHBOARD METRICS
+
     col1, col2, col3, col4 = st.columns(4)
 
     with col1:
@@ -97,34 +99,34 @@ if page == "🏠 Home":
             round(mae, 2)
         )
 
-   with col4:
+    with col4:
 
-    if st.session_state.latest_demand is not None:
+        if st.session_state.latest_demand is not None:
 
-        latest_demand = st.session_state.latest_demand
+            latest_demand = st.session_state.latest_demand
 
-        st.metric(
-            "🍱 Latest Demand",
-            latest_demand
-        )
+            st.metric(
+                "🍱 Latest Demand",
+                latest_demand
+            )
 
-        if latest_demand >= 160:
-            st.error("🔴 High Demand")
+            if latest_demand >= 160:
+                st.error("🔴 High Demand")
 
-        elif latest_demand < 100:
-            st.info("🔵 Low Demand")
+            elif latest_demand < 100:
+                st.info("🔵 Low Demand")
+
+            else:
+                st.success("🟢 Normal Demand")
 
         else:
-            st.success("🟢 Normal Demand")
 
-    else:
+            st.metric(
+                "🍱 Latest Demand",
+                "N/A"
+            )
 
-        st.metric(
-            "🍱 Latest Demand",
-            "N/A"
-        )
-
-        st.info("ℹ️ No prediction yet")
+            st.info("ℹ️ No prediction yet")
 
     st.divider()
 
