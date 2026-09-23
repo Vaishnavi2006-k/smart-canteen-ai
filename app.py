@@ -103,9 +103,10 @@ elif page == "🤖 Prediction":
     st.title("🤖 Smart Food Demand Prediction")
 
     st.info(
-    "💡 Enter the canteen details below. "
-    "The AI model will estimate the required food quantity."
+        "💡 Enter the canteen details below. "
+        "The AI model will estimate the required food quantity."
     )
+
     st.divider()
 
     st.subheader("📝 Canteen Details")
@@ -113,26 +114,36 @@ elif page == "🤖 Prediction":
     st.write("Enter canteen information to predict food demand.")
 
     student = st.number_input(
-        "Number of Students", min_value=1, value=150
+        "Number of Students",
+        min_value=1,
+        value=150
     )
 
     weather = st.selectbox(
-        "Weather", ["Cloudy", "Rainy", "Sunny"]
+        "Weather",
+        ["Cloudy", "Rainy", "Sunny"]
     )
 
     previous_sales = st.number_input(
-        "Previous Sales", min_value=0, value=140
+        "Previous Sales",
+        min_value=0,
+        value=140
     )
 
     special_event = st.selectbox(
-        "Special Event", ["No", "Yes"]
+        "Special Event",
+        ["No", "Yes"]
     )
 
     exam_day = st.selectbox(
-        "Exam Day", ["No", "Yes"]
+        "Exam Day",
+        ["No", "Yes"]
     )
 
-    if st.button("🔮 Predict Food Demand", use_container_width=True):
+    if st.button(
+        "🔮 Predict Food Demand",
+        use_container_width=True
+    ):
 
         weather_map = {
             "Cloudy": 0,
@@ -154,38 +165,54 @@ elif page == "🤖 Prediction":
         })
 
         demand = round(model.predict(new_data)[0])
+
         st.session_state.latest_demand = demand
+
         st.session_state.prediction_history.append({
-             "Students": student,
-             "Weather": weather,
-             "Previous Sales": previous_sales,
-             "Special Event": special_event,
-             "Exam Day": exam_day,
-             "Predicted Demand": demand
+            "Students": student,
+            "Weather": weather,
+            "Previous Sales": previous_sales,
+            "Special Event": special_event,
+            "Exam Day": exam_day,
+            "Predicted Demand": demand
         })
 
         if demand < 100:
-            recommendation = "Prepare Low quantity to reduce food waste."
+
+            recommendation = (
+                "Prepare Low quantity to reduce food waste."
+            )
+
             waste = "Low"
             preparation = "Low Preparation"
 
         elif demand < 160:
-            recommendation = "Prepare Medium quantity according to predicted demand."
+
+            recommendation = (
+                "Prepare Medium quantity according to predicted demand."
+            )
+
             waste = "Medium"
             preparation = "Medium Preparation"
 
         else:
-            recommendation = "Prepare High quantity to meet expected demand."
+
+            recommendation = (
+                "Prepare High quantity to meet expected demand."
+            )
+
             waste = "High"
             preparation = "High Preparation"
 
         st.divider()
 
         st.header("📊 Prediction Results")
+
         st.subheader("🎯 AI Prediction Summary")
+
         st.write(
-            f"The AI model predicts a food demand of **{demand} units** "
-           "based on the entered canteen conditions."
+            f"The AI model predicts a food demand of "
+            f"**{demand} units** based on the entered canteen conditions."
         )
 
         st.divider()
@@ -193,37 +220,47 @@ elif page == "🤖 Prediction":
         col1, col2, col3 = st.columns(3)
 
         with col1:
-            st.metric("🍱 Predicted Demand", demand)
+            st.metric(
+                "🍱 Predicted Demand",
+                demand
+            )
 
         with col2:
-            st.metric("♻️ Expected Waste", waste)
+            st.metric(
+                "♻️ Expected Waste",
+                waste
+            )
 
         with col3:
-            st.metric("👨‍🍳 Preparation Level", preparation)
+            st.metric(
+                "👨‍🍳 Preparation Level",
+                preparation
+            )
 
-        st.metric("Predicted Food Demand", demand)
-        st.metric("Expected Waste Level", waste)
-        st.metric("Food Preparation Level", preparation)
+        st.success(
+            "💡 " + recommendation
+        )
 
-       st.success("💡 " + recommendation)
+        if demand >= 160:
 
-       if demand >= 160:
-           st.warning(
-            "⚠️ High Demand Alert: Prepare food in batches "
-             "and monitor sales carefully."
-           )
+            st.warning(
+                "⚠️ High Demand Alert: Prepare food in batches "
+                "and monitor sales carefully."
+            )
 
-      elif demand < 100:
-          st.info(
-           "ℹ️ Low Demand: Avoid over-preparation "
-            "to reduce food waste."
-          )
+        elif demand < 100:
 
-    else:
-      st.success(
-        "✅ Normal Demand: Prepare food close to "
-        "the predicted quantity."
-     )
+            st.info(
+                "ℹ️ Low Demand: Avoid over-preparation "
+                "to reduce food waste."
+            )
+
+        else:
+
+            st.success(
+                "✅ Normal Demand: Prepare food close to "
+                "the predicted quantity."
+            )
 
 # DEMAND ANALYSIS
 elif page == "📊 Demand Analysis":
