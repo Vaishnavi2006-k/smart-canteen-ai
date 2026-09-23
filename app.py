@@ -66,16 +66,137 @@ page = st.sidebar.radio(
 # HOME
 if page == "🏠 Home":
 
-    st.title("🍱 Smart Canteen Food Demand Prediction")
+    st.title("🍱 Smart Canteen AI Dashboard")
 
     st.write(
-        "AI-based system to predict food demand and reduce food waste "
-        "using Machine Learning."
+        "AI-powered food demand prediction and waste reduction system "
+        "for smart canteen management."
     )
 
     st.divider()
 
-    st.header("📌 Project Overview")
+    # DASHBOARD METRICS
+
+    col1, col2, col3, col4 = st.columns(4)
+
+    with col1:
+        st.metric(
+            "📚 Dataset Records",
+            len(df)
+        )
+
+    with col2:
+        st.metric(
+            "🎯 R² Score",
+            round(score, 2)
+        )
+
+    with col3:
+        st.metric(
+            "📏 MAE",
+            round(mae, 2)
+        )
+
+    with col4:
+        if st.session_state.latest_demand is not None:
+            st.metric(
+                "🍱 Latest Demand",
+                st.session_state.latest_demand
+            )
+        else:
+            st.metric(
+                "🍱 Latest Demand",
+                "N/A"
+            )
+
+    st.divider()
+
+    # MAIN DASHBOARD
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+
+        st.subheader("📈 Food Demand Overview")
+
+        chart_data = df["Actual_Demand"].reset_index()
+
+        chart_data.columns = [
+            "Record",
+            "Demand"
+        ]
+
+        fig, ax = plt.subplots()
+
+        ax.plot(
+            chart_data["Record"],
+            chart_data["Demand"],
+            marker="o"
+        )
+
+        ax.set_xlabel("Dataset Record")
+        ax.set_ylabel("Food Demand")
+        ax.set_title("Historical Food Demand")
+
+        st.pyplot(fig)
+
+    with col2:
+
+        st.subheader("🔄 How the System Works")
+
+        st.write(
+            "The system follows these steps:"
+        )
+
+        st.write(
+            "👨‍🎓 Student Count"
+        )
+
+        st.write(
+            "🌦️ Weather"
+        )
+
+        st.write(
+            "💰 Previous Sales"
+        )
+
+        st.write(
+            "🎉 Special Event"
+        )
+
+        st.write(
+            "📝 Exam Day"
+        )
+
+        st.write(
+            "⬇️"
+        )
+
+        st.write(
+            "🤖 Random Forest Model"
+        )
+
+        st.write(
+            "⬇️"
+        )
+
+        st.write(
+            "🍱 Predicted Food Demand"
+        )
+
+        st.write(
+            "⬇️"
+        )
+
+        st.write(
+            "♻️ Waste Reduction Recommendation"
+        )
+
+    st.divider()
+
+    # PROJECT INFORMATION
+
+    st.subheader("📌 Project Overview")
 
     st.write(
         "The system learns from previous canteen data and predicts "
@@ -83,27 +204,10 @@ if page == "🏠 Home":
         "the appropriate quantity of food and reduce unnecessary wastage."
     )
 
-    st.subheader("🔄 How It Works")
-
-    st.write(
-        "Student Count + Weather + Previous Sales + Special Event + Exam Day "
-        "→ Random Forest Model → Predicted Demand → Waste Recommendation"
-    )
-
-    st.divider()
-
-    st.header("📊 Project Information")
-
-    st.write("**Dataset Records:**", len(df))
-    st.write("**Machine Learning Model:** Random Forest Regressor")
-    st.write("**R² Score:**", round(score, 2))
-    st.write("**Mean Absolute Error:**", round(mae, 2))
-
     st.info(
         "🎯 Goal: Predict food demand and help reduce food wastage."
     )
-
-
+    
 # PREDICTION
 elif page == "🤖 Prediction":
 
