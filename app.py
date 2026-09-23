@@ -413,16 +413,70 @@ elif page == "📋 Prediction History":
             st.session_state.prediction_history
         )
 
+        st.subheader("📊 History Summary")
+
+        col1, col2, col3 = st.columns(3)
+
+        with col1:
+            st.metric(
+                "📋 Total Predictions",
+                len(history_df)
+            )
+
+        with col2:
+            st.metric(
+                "📊 Average Predicted Demand",
+                round(
+                    history_df["Predicted Demand"].mean(),
+                    1
+                )
+            )
+
+        with col3:
+            st.metric(
+                "⬆️ Highest Predicted Demand",
+                int(
+                    history_df["Predicted Demand"].max()
+                )
+            )
+
+        st.divider()
+
+        st.subheader("📋 Prediction Records")
+
         st.dataframe(
             history_df,
             use_container_width=True
         )
 
-        st.metric(
-            "Total Predictions",
-            len(history_df)
+        st.divider()
+
+        st.subheader("📈 Predicted Demand Trend")
+
+        chart_data = history_df[
+            ["Predicted Demand"]
+        ].reset_index()
+
+        chart_data.columns = [
+            "Prediction Number",
+            "Demand"
+        ]
+
+        fig, ax = plt.subplots()
+
+        ax.plot(
+            chart_data["Prediction Number"],
+            chart_data["Demand"],
+            marker="o"
         )
-            
+
+        ax.set_xlabel("Prediction Number")
+        ax.set_ylabel("Predicted Demand")
+        ax.set_title("Prediction History Trend")
+
+        st.pyplot(fig)
+
+
 st.sidebar.divider()
 
 st.sidebar.caption(
