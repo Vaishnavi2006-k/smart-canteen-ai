@@ -355,36 +355,57 @@ elif page == "🤖 Prediction":
 
     st.divider()
 
-    st.subheader("📝 Canteen Details")
+        st.subheader("📝 Canteen Details")
 
-    st.write("Enter canteen information to predict food demand.")
-
-    student = st.number_input(
-        "Number of Students",
-        min_value=1,
-        value=150
+    st.markdown(
+        """
+        <div style="
+            background: #0d152b;
+            border: 1px solid #27345a;
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 20px;
+        ">
+            <p style="color: #9aa6c1; margin: 0;">
+                Enter the current canteen conditions below.
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True
     )
 
-    weather = st.selectbox(
-        "Weather",
-        ["Cloudy", "Rainy", "Sunny"]
-    )
+    col1, col2 = st.columns(2)
 
-    previous_sales = st.number_input(
-        "Previous Sales",
-        min_value=0,
-        value=140
-    )
+    with col1:
 
-    special_event = st.selectbox(
-        "Special Event",
-        ["No", "Yes"]
-    )
+        student = st.number_input(
+            "👨‍🎓 Number of Students",
+            min_value=1,
+            value=150
+        )
 
-    exam_day = st.selectbox(
-        "Exam Day",
-        ["No", "Yes"]
-    )
+        weather = st.selectbox(
+            "🌦️ Weather",
+            ["Cloudy", "Rainy", "Sunny"]
+        )
+
+        previous_sales = st.number_input(
+            "💰 Previous Sales",
+            min_value=0,
+            value=140
+        )
+
+    with col2:
+
+        special_event = st.selectbox(
+            "🎉 Special Event",
+            ["No", "Yes"]
+        )
+
+        exam_day = st.selectbox(
+            "📝 Exam Day",
+            ["No", "Yes"]
+        )
 
     if st.button(
         "🔮 Predict Food Demand",
