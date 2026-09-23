@@ -219,14 +219,32 @@ elif page == "📊 Demand Analysis":
         "Food demand pattern from the available canteen dataset."
     )
 
+    col1, col2, col3, col4 = st.columns(4)
+
+with col1:
     st.metric(
-        "Average Food Demand",
+        "📊 Average Demand",
         round(df["Actual_Demand"].mean(), 1)
     )
 
+with col2:
     st.metric(
-        "Maximum Food Demand",
+        "⬇️ Minimum Demand",
+        int(df["Actual_Demand"].min())
+    )
+
+with col3:
+    st.metric(
+        "⬆️ Maximum Demand",
         int(df["Actual_Demand"].max())
+    )
+
+with col4:
+    st.metric(
+        "📋 Dataset Records",
+        len(df)
+    )
+    
     )
 
     st.divider()
