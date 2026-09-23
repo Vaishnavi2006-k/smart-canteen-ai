@@ -330,6 +330,24 @@ elif page == "🤖 Prediction":
 
     st.title("🤖 Smart Food Demand Prediction")
 
+    st.markdown(
+    """
+    <div style="
+        background: #0d152b;
+        border: 1px solid #27345a;
+        border-radius: 14px;
+        padding: 20px;
+        margin-bottom: 20px;
+    ">
+        <h2 style="margin: 0;">🤖 AI Demand Prediction</h2>
+        <p style="color: #9aa6c1; margin-bottom: 0;">
+            Enter canteen details to predict the required food quantity.
+        </p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
     st.info(
         "💡 Enter the canteen details below. "
         "The AI model will estimate the required food quantity."
