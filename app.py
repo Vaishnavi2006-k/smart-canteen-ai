@@ -221,48 +221,48 @@ elif page == "📊 Demand Analysis":
 
     col1, col2, col3, col4 = st.columns(4)
 
-with col1:
-    st.metric(
-        "📊 Average Demand",
-        round(df["Actual_Demand"].mean(), 1)
+    with col1:
+        st.metric(
+            "📊 Average Demand",
+            round(df["Actual_Demand"].mean(), 1)
+        )
+
+    with col2:
+        st.metric(
+            "⬇️ Minimum Demand",
+            int(df["Actual_Demand"].min())
+        )
+
+    with col3:
+        st.metric(
+            "⬆️ Maximum Demand",
+            int(df["Actual_Demand"].max())
+        )
+
+    with col4:
+        st.metric(
+            "📋 Dataset Records",
+            len(df)
+        )
+
+    st.divider()
+
+    chart_data = df["Actual_Demand"].reset_index()
+    chart_data.columns = ["Record", "Demand"]
+
+    fig, ax = plt.subplots()
+
+    ax.plot(
+        chart_data["Record"],
+        chart_data["Demand"],
+        marker="o"
     )
 
-with col2:
-    st.metric(
-        "⬇️ Minimum Demand",
-        int(df["Actual_Demand"].min())
-    )
+    ax.set_xlabel("Dataset Record")
+    ax.set_ylabel("Food Demand")
+    ax.set_title("Food Demand Trend")
 
-with col3:
-    st.metric(
-        "⬆️ Maximum Demand",
-        int(df["Actual_Demand"].max())
-    )
-
-with col4:
-    st.metric(
-        "📋 Dataset Records",
-        len(df)
-    )
-
-st.divider()
-
-chart_data = df["Actual_Demand"].reset_index()
-chart_data.columns = ["Record", "Demand"]
-
-  fig, ax = plt.subplots()
-
-ax.plot(
-    chart_data["Record"],
-    chart_data["Demand"],
-    marker="o"
-)
-
-ax.set_xlabel("Dataset Record")
-ax.set_ylabel("Food Demand")
-ax.set_title("Food Demand Trend")
-
-st.pyplot(fig)
+    st.pyplot(fig)
 
     st.subheader("📋 Dataset Preview")
 
@@ -270,8 +270,7 @@ st.pyplot(fig)
         df.head(10),
         use_container_width=True
     )
-
-
+    
 # MODEL PERFORMANCE
 elif page == "🧠 Model Performance":
 
