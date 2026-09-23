@@ -387,7 +387,7 @@ elif page == "♻️ Waste Management":
                 waste_level
             )
 
-            if demand >= 160:
+if demand >= 160:
     st.warning(
         "⚠️ High Demand Alert: Prepare food in batches "
         "and monitor sales carefully."
