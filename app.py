@@ -276,25 +276,26 @@ elif page == "🧠 Model Performance":
 
     st.title("🧠 Model Performance")
 
-col1, col2, col3 = st.columns(3)
+    col1, col2, col3 = st.columns(3)
 
-with col1:
-    st.metric(
-        "🎯 R² Score",
-        round(score, 2)
-    )
+    with col1:
+        st.metric(
+            "🎯 R² Score",
+            round(score, 2)
+        )
 
-with col2:
-    st.metric(
-        "📏 Mean Absolute Error",
-        round(mae, 2)
-    )
+    with col2:
+        st.metric(
+            "📏 Mean Absolute Error",
+            round(mae, 2)
+        )
 
-with col3:
-    st.metric(
-        "📚 Training Records",
-        len(X_train)
-    )
+    with col3:
+        st.metric(
+            "📚 Training Records",
+            len(X_train)
+        )
+
     st.divider()
 
     st.header("🌳 Random Forest Regressor")
@@ -313,7 +314,6 @@ with col3:
         "The model learns patterns from historical canteen data "
         "to estimate future food demand."
     )
-
 
 # WASTE MANAGEMENT
 elif page == "♻️ Waste Management":
