@@ -355,7 +355,7 @@ elif page == "🤖 Prediction":
 
     st.divider()
 
-        st.subheader("📝 Canteen Details")
+    st.subheader("📝 Canteen Details")
 
     st.markdown(
         """
