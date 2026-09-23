@@ -75,7 +75,7 @@ if page == "🏠 Home":
 
     st.divider()
 
-    # DASHBOARD METRICS
+   
 
         # DASHBOARD METRICS
 
@@ -127,6 +127,32 @@ if page == "🏠 Home":
             )
 
             st.info("ℹ️ No prediction yet")
+
+    st.divider()
+
+        # QUICK ACTIONS
+
+    st.subheader("⚡ Quick Actions")
+
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        st.info(
+            "🤖 Prediction\n\n"
+            "Predict food demand using AI."
+        )
+
+    with col2:
+        st.info(
+            "📊 Demand Analysis\n\n"
+            "Analyze historical food demand."
+        )
+
+    with col3:
+        st.info(
+            "♻️ Waste Management\n\n"
+            "Reduce unnecessary food waste."
+        )
 
     st.divider()
 
