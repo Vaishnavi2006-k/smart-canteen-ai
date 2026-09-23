@@ -244,13 +244,11 @@ with col4:
         "📋 Dataset Records",
         len(df)
     )
-    
-    )
 
-    st.divider()
+st.divider()
 
-    chart_data = df["Actual_Demand"].reset_index()
-    chart_data.columns = ["Record", "Demand"]
+chart_data = df["Actual_Demand"].reset_index()
+chart_data.columns = ["Record", "Demand"]
 
     fig, ax = plt.subplots()
 
