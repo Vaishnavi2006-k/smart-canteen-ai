@@ -387,10 +387,20 @@ elif page == "♻️ Waste Management":
                 waste_level
             )
 
-            st.success(
-                "💡 " + suggestion
-            )
-
+            if demand >= 160:
+    st.warning(
+        "⚠️ High Demand Alert: Prepare food in batches "
+        "and monitor sales carefully."
+    )
+elif demand < 100:
+    st.info(
+        "ℹ️ Low Demand: Avoid over-preparation to reduce food waste."
+    )
+else:
+    st.success(
+        "✅ Normal Demand: Prepare food close to the predicted quantity."
+    )
+    
 # PREDICTION HISTORY
 elif page == "📋 Prediction History":
 
