@@ -105,6 +105,23 @@ if "prediction_history" not in st.session_state:
 # Sidebar
 st.sidebar.title("🍱 Smart Canteen AI")
 
+st.sidebar.markdown(
+    """
+    <div style="
+        padding: 10px 5px 20px 5px;
+        text-align: center;
+    ">
+        <h2 style="margin-bottom: 0;">🍱 Smart Canteen AI</h2>
+        <p style="color: #8f9bb8; margin-top: 5px;">
+            Food Demand & Waste Reduction
+        </p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+st.sidebar.divider()
+
 page = st.sidebar.radio(
     "Navigation",
     [
@@ -271,19 +288,42 @@ if page == "🏠 Home":
 
     st.divider()
    
-    # PROJECT INFORMATION
+        # PROJECT OVERVIEW
 
     st.subheader("📌 Project Overview")
 
-    st.write(
-        "The system learns from previous canteen data and predicts "
-        "the expected food demand. This helps canteen staff prepare "
-        "the appropriate quantity of food and reduce unnecessary wastage."
-    )
+    col1, col2 = st.columns(2)
 
-    st.info(
-        "🎯 Goal: Predict food demand and help reduce food wastage."
-    )
+    with col1:
+
+        st.write(
+            "The system learns from previous canteen data "
+            "and predicts expected food demand using Machine Learning."
+        )
+
+        st.write(
+            "This helps canteen staff prepare the required quantity "
+            "of food and reduce unnecessary wastage."
+        )
+
+    with col2:
+
+        st.success(
+            "🎯 Main Goal"
+        )
+
+        st.write(
+            "Predict food demand accurately and support "
+            "smart food preparation."
+        )
+
+        st.warning(
+            "♻️ Waste Reduction"
+        )
+
+        st.write(
+            "Avoid over-preparation and reduce food wastage."
+        )
     
 # PREDICTION
 elif page == "🤖 Prediction":
