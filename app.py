@@ -276,12 +276,25 @@ elif page == "🧠 Model Performance":
 
     st.title("🧠 Model Performance")
 
-    st.metric("R² Score", round(score, 2))
+col1, col2, col3 = st.columns(3)
 
-    st.metric("Mean Absolute Error", round(mae, 2))
+with col1:
+    st.metric(
+        "🎯 R² Score",
+        round(score, 2)
+    )
 
-    st.metric("Training Records", len(X_train))
+with col2:
+    st.metric(
+        "📏 Mean Absolute Error",
+        round(mae, 2)
+    )
 
+with col3:
+    st.metric(
+        "📚 Training Records",
+        len(X_train)
+    )
     st.divider()
 
     st.header("🌳 Random Forest Regressor")
