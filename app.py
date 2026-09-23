@@ -39,7 +39,14 @@ if "latest_demand" not in st.session_state:
 
 # Prediction History
 if "prediction_history" not in st.session_state:
-    st.session_state.prediction_history = []
+
+    try:
+        st.session_state.prediction_history = pd.read_csv(
+            "prediction_history.csv"
+        ).to_dict("records")
+
+    except FileNotFoundError:
+        st.session_state.prediction_history = []
     
 # Sidebar
 st.sidebar.title("🍱 Smart Canteen AI")
@@ -176,6 +183,13 @@ elif page == "🤖 Prediction":
             "Exam Day": exam_day,
             "Predicted Demand": demand
         })
+
+        pd.DataFrame(
+           st.session_state.prediction_history
+        ).to_csv(
+          "prediction_history.csv",
+           index=False
+        )
 
         if demand < 100:
 
