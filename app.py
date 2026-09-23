@@ -497,6 +497,17 @@ elif page == "📋 Prediction History":
             use_container_width=True
         )
 
+        csv = history_df.to_csv(index=False)
+
+        st.download_button(
+            "⬇️ Download Prediction History",
+             csv,
+            "prediction_history.csv",
+            "text/csv",
+            use_container_width=True
+        )
+        
+
         st.divider()
 
         st.subheader("📈 Predicted Demand Trend")
