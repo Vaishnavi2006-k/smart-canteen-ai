@@ -250,19 +250,19 @@ st.divider()
 chart_data = df["Actual_Demand"].reset_index()
 chart_data.columns = ["Record", "Demand"]
 
-    fig, ax = plt.subplots()
+  fig, ax = plt.subplots()
 
-    ax.plot(
-        chart_data["Record"],
-        chart_data["Demand"],
-        marker="o"
-    )
+ax.plot(
+    chart_data["Record"],
+    chart_data["Demand"],
+    marker="o"
+)
 
-    ax.set_xlabel("Dataset Record")
-    ax.set_ylabel("Food Demand")
-    ax.set_title("Food Demand Trend")
+ax.set_xlabel("Dataset Record")
+ax.set_ylabel("Food Demand")
+ax.set_title("Food Demand Trend")
 
-    st.pyplot(fig)
+st.pyplot(fig)
 
     st.subheader("📋 Dataset Preview")
 
