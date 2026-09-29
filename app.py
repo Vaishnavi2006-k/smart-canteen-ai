@@ -680,7 +680,8 @@ elif page == "🧠 Model Performance":
         "The model learns patterns from historical canteen data "
         "to estimate future food demand."
     )
-        st.divider()
+    
+    st.divider()
 
     st.subheader("📈 Actual vs Predicted Demand")
 
