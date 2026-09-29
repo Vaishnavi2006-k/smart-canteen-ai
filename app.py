@@ -148,7 +148,6 @@ if page == "🏠 Home":
 
 
         # DASHBOARD METRICS
-    recommended_quantity = demand + 5
 
     col1, col2, col3, col4 = st.columns(4)
 
@@ -432,6 +431,8 @@ elif page == "🤖 Prediction":
         })
 
         demand = round(model.predict(new_data)[0])
+        
+        recommended_quantity = demand + 5
 
         st.session_state.latest_demand = demand
 
