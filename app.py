@@ -713,7 +713,10 @@ elif page == "♻️ Waste Management":
                 "Expected Waste Level",
                 waste_level
             )
-    
+            st.success(
+                "💡 Recommendation: " + suggestion
+            )
+            
 # PREDICTION HISTORY
 elif page == "📋 Prediction History":
 
