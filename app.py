@@ -680,6 +680,37 @@ elif page == "🧠 Model Performance":
         "The model learns patterns from historical canteen data "
         "to estimate future food demand."
     )
+        st.divider()
+
+    st.subheader("📈 Actual vs Predicted Demand")
+
+    comparison_df = pd.DataFrame({
+        "Actual Demand": y_test.values,
+        "Predicted Demand": y_pred
+    }).reset_index(drop=True)
+
+    fig, ax = plt.subplots()
+
+    ax.plot(
+        comparison_df.index,
+        comparison_df["Actual Demand"],
+        marker="o",
+        label="Actual Demand"
+    )
+
+    ax.plot(
+        comparison_df.index,
+        comparison_df["Predicted Demand"],
+        marker="o",
+        label="Predicted Demand"
+    )
+
+    ax.set_xlabel("Test Record")
+    ax.set_ylabel("Food Demand")
+    ax.set_title("Actual vs Predicted Food Demand")
+    ax.legend()
+
+    st.pyplot(fig)
 
 # WASTE MANAGEMENT
 elif page == "♻️ Waste Management":
