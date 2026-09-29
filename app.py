@@ -146,9 +146,9 @@ if page == "🏠 Home":
 
     st.divider()
 
-   
 
         # DASHBOARD METRICS
+    recommended_quantity = demand + 5
 
     col1, col2, col3, col4 = st.columns(4)
 
