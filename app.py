@@ -591,6 +591,45 @@ elif page == "📊 Demand Analysis":
 
     st.pyplot(fig)
 
+    st.subheader("📌 Demand Category")
+
+    high_demand = len(
+        df[df["Actual_Demand"] >= 160]
+    )
+
+    normal_demand = len(
+        df[
+            (df["Actual_Demand"] >= 100) &
+            (df["Actual_Demand"] < 160)
+        ]
+    )
+
+    low_demand = len(
+        df[df["Actual_Demand"] < 100]
+    )
+
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        st.metric(
+            "🔴 High Demand Records",
+            high_demand
+        )
+
+    with col2:
+        st.metric(
+            "🟢 Normal Demand Records",
+            normal_demand
+        )
+
+    with col3:
+        st.metric(
+            "🔵 Low Demand Records",
+            low_demand
+        )
+
+    st.divider()
+
     st.subheader("📋 Dataset Preview")
 
     st.dataframe(
